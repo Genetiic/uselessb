@@ -1,8 +1,12 @@
 const Discord = require("discord.js");
-
 const client = new Discord.Client();
-
 const config = require("./config.json");
+require('dotenv/config');
+const http = require('http');
+const port = process.env.PORT || 3000;
+http.createServer().listen(port);
+
+const token = process.env.TOKEN;
 
 
 client.on("ready", () => {
@@ -116,4 +120,8 @@ client.on("message", async message => {
   }
 });
 
-client.login(config.token);
+client.on('error', err => {
+  console.log(err);
+});
+
+client.login(token);
